@@ -16,6 +16,6 @@ function [mplot]=myplot(x,V,F,N)
         trisurf(tri,x_coord,y_coord,detF(1,1:N));
         
         subplot(2,2,3);
-        trisurf(tri,x_coord,y_coord,V(1,1:N));
+        trisurf(tri,x_coord,y_coord,V(1:N,1));
         pause(0.0000001);
 mplot=0;

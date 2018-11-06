@@ -12,14 +12,14 @@ for i = 1:N
            for j = 1:N
                    xj=x(1:2,j);
                    ri=xi-xj;
-                   sumW=sumW+V(1,j)*ComputeW(xi,xj,h)*ri;
+                   sumW=sumW+V(j)*ComputeW(xi,xj,h)*ri;
             end
             
             for beta=1:2
                 for j = 1:N
                     xj=x(1:2,j);
                     ri=xi-xj;
-                    cormat=cormat+(ri*ri'*V(1,j)*ComputeW(xi,xj,h));%51
+                    cormat=cormat+(ri*ri'*V(j)*ComputeW(xi,xj,h));%51
                  end
             end
             
@@ -28,7 +28,7 @@ for i = 1:N
             for j = 1:N
                  xj=x(1:2,j);
                  ri=xi-xj;
-                 alpha=alpha+(V(1,j)*(1+dot(betaij,ri))*ComputeW(xi,xj,h));%52
+                 alpha=alpha+(V(j)*(1+dot(betaij,ri))*ComputeW(xi,xj,h));%52
             end
             alpha=1/alpha;
             
