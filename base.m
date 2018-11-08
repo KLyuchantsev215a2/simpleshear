@@ -1,14 +1,14 @@
 clear;    
 rho_0 =1.2;
-v_0 = 0.1;
+v_0 = 10;
 Time = 10;
 sqn=10;
 l=0.01;
 N=sqn*sqn;
 S=l*l;
 m=rho_0*S/N;
-h=0.8*(m/rho_0)^(1/2);
-dt=0.1;
+h=4.8*(m/rho_0)^(1/2);
+dt=0.00001;
 dh=0.00000001;
 V=m/rho_0*ones(N,1);%m/rho_0;
 x=initialization_x(N,sqn,l);    
@@ -43,16 +43,17 @@ for n = 1:fix(Time/dt)
     L=ComputeL(v,V,nabla_W_cor,N);
         
  
-        
+    V=computeV(N,W_cor,m); 
+    
        for i = 1:N
            v(2,i)=(x(2,i))*v_0;
-        end
+       end
         
-         for i = 1:N
-             x(2,i)=x(2,i)+dt*v(2,i);
-         end
+        for i = 1:N
+            x(2,i)=x(2,i)+dt*v(2,i);
+        end
     
-        V=computeV(N,W_cor);
+        
     
       for i = 1:N   
          dtLL = dt* L(1:2,1:2,i);
@@ -60,5 +61,7 @@ for n = 1:fix(Time/dt)
       end
       
     plotmy=myplot(x,V,F,N);
+   
     
+
 end

@@ -1,4 +1,4 @@
- function [V] = computeV(N,W_cor)
+ function [V] = computeV(N,W_cor,m)
 
 V=zeros(N,1);
 for i = 1:N
@@ -7,3 +7,6 @@ for i = 1:N
     end
 end
 
+for i = 1:N
+    V(i,1)=m/V(i,1);
+end
