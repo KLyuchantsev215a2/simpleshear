@@ -9,9 +9,5 @@ for i = 1:N
 end
 
 for i = 1:N
-<<<<<<< HEAD
-    V(i,1)=m/V(i,1);
-=======
     V(i)=m/rho(i);
->>>>>>> 33acd43b5d49aeb99e8f8d2532a5815042314075
 end

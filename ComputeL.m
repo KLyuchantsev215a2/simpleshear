@@ -7,16 +7,15 @@ v_tmp=[0,0];
 
 
 for i = 1:N
-    v_tmpi=v(1:2,i);
-    for j = 1:N
-         
+    for j = 1:N        
          v_tmpj=v(1:2,j);
          
          nabla_W_tmp=nabla_W_cor(1:2,i,j); 
         
-         for beta=1:2            
-            L_tmp(1,beta)=L_tmp(1,beta)+V(j)*(v_tmpj(1))*nabla_W_tmp(beta);  
-            L_tmp(2,beta)=L_tmp(2,beta)+V(j)*(v_tmpj(2))*nabla_W_tmp(beta); 
+         for beta=1:2   
+             for alpha=1:2
+                L_tmp(alpha,beta)=L_tmp(alpha,beta)+(V(j)/1.2)*(v_tmpj(alpha))*nabla_W_tmp(beta); 
+             end
          end
         
     end
