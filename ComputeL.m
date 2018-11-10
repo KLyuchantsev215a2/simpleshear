@@ -14,7 +14,7 @@ for i = 1:N
         
          for beta=1:2   
              for alpha=1:2
-                L_tmp(alpha,beta)=L_tmp(alpha,beta)+(V(j)/1.2)*(v_tmpj(alpha))*nabla_W_tmp(beta); 
+                 L_tmp(alpha,beta)=L_tmp(alpha,beta)+(V(j))*(v_tmpj(alpha))*nabla_W_tmp(beta); 
              end
          end
         
