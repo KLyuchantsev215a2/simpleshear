@@ -1,13 +1,13 @@
 function [W_cor]=ComputeW_cor(N,x,xper,V,h)
 
-for i = 1:N  
-    xi=xper(1:2,i);
-           for j = 1:N
-               xj=x(1:2,j);
-                W_cor(i,j)=ComputeW(xi,xj,h);
-           end
-end
-return;
+% for i = 1:N  
+%     xi=xper(1:2,i);
+%            for j = 1:N
+%                xj=x(1:2,j);
+%                 W_cor(i,j)=ComputeW(xi,xj,h);
+%            end
+% end
+% return;
 
 xi=[0,0];
 xj=[0,0];

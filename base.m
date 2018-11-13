@@ -1,6 +1,6 @@
 clear;    
 
-rho_0 =0.012;
+rho_0 =0.12;
 v_0 = 0.1;
 Time = 10;
 sqn=4;
@@ -18,8 +18,8 @@ cs_0=sqrt((E+4/3*mu)/rho_0);
 
 h=2*(m/rho_0)^(1/2);%k увеличен
 dt=0.00001;
-dh=0.0000001;
-eps=0.00000025;
+dh=0.000000001;
+eps=0.25;
 
 
 V=m/rho_0*ones(N,1);%m/rho_0;
@@ -46,7 +46,7 @@ for n = 1:fix(Time/dt)
     W_cor_2per=zeros(N,N);
     nabla_W_cor=zeros(2,N,N);
     Hessian_W_cor=zeros(2,N,N);
-    W_cor=ComputeW_cor(N,x,x,V,h);
+    
     
     x_per1=x;
     x_per2=x;
@@ -55,8 +55,10 @@ for n = 1:fix(Time/dt)
     
     x_per1(1,1:N)=x_per1(1,1:N)+dh;
     x_per2(2,1:N)=x_per2(2,1:N)+dh;
-    x_per1_inv(1,1:N)=x_per1(1,1:N)-dh;
-    x_per2_inv(2,1:N)=x_per2(2,1:N)-dh;
+    x_per1_inv(1,1:N)=x_per1_inv(1,1:N)-dh;
+    x_per2_inv(2,1:N)=x_per2_inv(2,1:N)-dh;
+    
+    W_cor=ComputeW_cor(N,x,x,V,h);
     
     W_cor_1per=ComputeW_cor(N,x,x_per1,V,h);
     W_cor_2per=ComputeW_cor(N,x,x_per2,V,h);
@@ -65,7 +67,8 @@ for n = 1:fix(Time/dt)
     
     nabla_W_cor(1,1:N,1:N)=(W_cor_1per-W_cor)/dh;
     nabla_W_cor(2,1:N,1:N)=(W_cor_2per-W_cor)/dh;
-    
+    W=W_cor_1per-W_cor;
+    W2=W_cor_1per-2*W_cor+W_cor_1per_inv;
     Hessian_W_cor(1,1:N,1:N)=(W_cor_1per-2*W_cor+W_cor_1per_inv)/(dh*dh);
     Hessian_W_cor(2,1:N,1:N)=(W_cor_2per-2*W_cor+W_cor_2per_inv)/(dh*dh);
     
