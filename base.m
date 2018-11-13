@@ -1,9 +1,9 @@
 clear;    
 
-rho_0 =0.12;
+rho_0 =0.012;
 v_0 = 0.1;
 Time = 10;
-sqn=4;
+sqn=5;
 l=0.01;
 N=sqn*sqn;
 S=l*l;
@@ -17,9 +17,9 @@ E=9*k*mu/(3*k+mu);   % модуль Юнга
 cs_0=sqrt((E+4/3*mu)/rho_0);
 
 h=2*(m/rho_0)^(1/2);%k увеличен
-dt=0.00001;
+dt=0.000005;
 dh=0.000000001;
-eps=0.25;
+eps=1;
 
 
 V=m/rho_0*ones(N,1);%m/rho_0;
@@ -89,8 +89,8 @@ for n = 1:fix(Time/dt)
     
     F=ComputeF(V,x,nabla_W_cor_0,N,X_old);  
     SIG=ComputeStress(F,mu,k,N);
-    P=ComputeKirchhoff(F,SIG,N);
-    f=ComputeForse(V,P,nabla_W_cor,N);
+ %   P=ComputeKirchhoff(F,SIG,N);
+ %   f=ComputeForse(V,P,nabla_W_cor,N);
     plotmy=myplot(x,V,F,N,SIG,l);
 %    fsum=[0;0];
 %     for i=1:N
