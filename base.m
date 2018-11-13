@@ -1,6 +1,6 @@
 clear;    
 
-rho_0 =0.12;
+rho_0 =0.012;
 v_0 = 0.1;
 Time = 10;
 sqn=4;
@@ -14,9 +14,12 @@ mu = 10;
 k=2*mu*(1+nu)/(3*(1-2*nu));
 E=9*k*mu/(3*k+mu);   % модуль Юнга
 
+cs_0=sqrt((E+4/3*mu)/rho_0);
+
 h=2*(m/rho_0)^(1/2);%k увеличен
 dt=0.00001;
-dh=0.00000001;
+dh=0.0000001;
+eps=0.00000025;
 
 
 V=m/rho_0*ones(N,1);%m/rho_0;
@@ -74,7 +77,7 @@ for n = 1:fix(Time/dt)
         
     V=computeV(N,W_cor,m); 
    
-    v=ComputeVelocity(dt,v,SIG,nabla_W_cor,V,N,m);
+    v=ComputeVelocity(dt,v,SIG,nabla_W_cor,V,N,m,eps,h,Hessian_W_cor,cs_0);
 
     for i = 1:N
         x(1,i)=x(1,i)+dt*v(1,i);
@@ -86,6 +89,9 @@ for n = 1:fix(Time/dt)
     P=ComputeKirchhoff(F,SIG,N);
     f=ComputeForse(V,P,nabla_W_cor,N);
     plotmy=myplot(x,V,F,N,SIG,l);
-    
-
+%    fsum=[0;0];
+%     for i=1:N
+%         fsum(1:2)=f(1:2,i)+fsum(1:2);
+%     end
+%     fsum=fsum;
 end
