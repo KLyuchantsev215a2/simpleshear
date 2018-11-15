@@ -1,10 +1,10 @@
 clear;    
 
 rho_0 =0.12;
-v_0 = 0.05;
+v_0 = 0.5;
 Time = 10;
 sqn=4;
-l=0.01;
+l=1;
 N=sqn*sqn;
 S=l*l;
 m=rho_0*S/N;
@@ -19,7 +19,7 @@ cs_0=sqrt((E+4/3*mu)/rho_0);
 h=2*(m/rho_0)^(1/2);%k увеличен
 dt=0.0000566666;
 dh=0.000000001;
-eps=0;
+eps=0.25;
 
 
 V=m/rho_0*ones(N,1);%m/rho_0;
@@ -83,7 +83,6 @@ for n = 1:fix(Time/dt)
         end
     
         V=computeV(N,W_cor,m);
-        L=ComputeL(v,V,nabla_W_cor,N);
         v_new=ComputeVelocity(dt,v,SIG,nabla_W_cor,V,N,m,eps,h,Hessian_W_cor,cs_0);
     
         F=ComputeF(V,x,nabla_W_cor_0,N,X_old);  
@@ -96,6 +95,10 @@ for n = 1:fix(Time/dt)
     end
     v=0.5*(v_new+v_old);
     x=0.5*(x_new+x_old);
+    V=computeV(N,W_cor,m);
+    L=ComputeL(v,V,nabla_W_cor,N);
+    F=ComputeF(V,x,nabla_W_cor_0,N,X_old);  
+    SIG=ComputeStress(F,mu,k,N);
  %   P=ComputeKirchhoff(F,SIG,N);
  %   f=ComputeForse(V,P,nabla_W_cor,N);
     plotmy=myplot(x,V,F,N,SIG,l);
