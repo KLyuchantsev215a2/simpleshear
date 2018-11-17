@@ -5,7 +5,7 @@ function [mplot]=myplot(x,V,F,N,SIG,l,temp)
      subplot(2,2,1);
      
      scatter(x_coord,y_coord);
-     axis([-l 2*l 0 2*l ]);
+     %axis([-l 2*l 0 2*l ]);
         
      detF=ones(1,N);
      for i = 1:N
@@ -15,11 +15,11 @@ function [mplot]=myplot(x,V,F,N,SIG,l,temp)
         tri=delaunay(x_coord,y_coord);
         subplot(2,2,2);
         trisurf(tri,x_coord,y_coord,detF(1,1:N));
-        axis([0 l 0 l 0.99 1.01]);
+      %  axis([0 l 0 l 0.99 1.01]);
         
         subplot(2,2,3);
         trisurf(tri,x_coord,y_coord,V(1:N,1));
-        axis([0 l 0 l -0.1 0.1]);
+      %  axis([0 l 0 l -0.1 0.1]);
        errSIG=zeros(1,N);
        for i = 1:N
                errSIG(i)=SIG(1,2,i);

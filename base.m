@@ -1,9 +1,9 @@
 clear;    
 
-rho_0 =0.012;
-v_0 = 0.1;
+rho_0 =120;
+v_0 = 1;
 Time = 10;
-sqn=8;
+sqn=5;
 l=0.01;
 N=sqn*sqn;
 S=l*l;
@@ -16,11 +16,11 @@ E=9*k*mu/(3*k+mu);   % модуль Юнга
 
 cs_0=sqrt((E+4/3*mu)/rho_0);
 
-h=4*(m/rho_0)^(1/2);%k увеличен
-dt=0.000001;
+h=1*(m/rho_0)^(1/2);%k увеличен
+dt=0.0005;
 dh=0.0000001;
-eps=0.0025;
-
+eps1=1/4;%-100;
+eps2=1/4;%-50;%1/5;
 
 V=m/rho_0*ones(N,1);%m/rho_0;
 x=initialization_x(N,sqn,l);    
@@ -77,9 +77,9 @@ for n = 1:fix(Time/dt)
     
     L=ComputeL(v,V,nabla_W_cor,N);
    % temp=ComputeTemp(temp,V,eps,Hessian_W_cor,N);
-    V=computeV(N,W_cor,m); 
-    viscosity=ComputeViscocity(v,V,eps,h,Hessian_W_cor,cs_0,N);
-    v=ComputeVelocity(dt,v,SIG,nabla_W_cor,V,N,m,viscosity);
+   % V=computeV(N,W_cor,m); 
+    viscosity=ComputeViscocity(v,V,eps1,h,Hessian_W_cor,cs_0,N,eps2);
+    v=ComputeVelocity(dt,v,SIG,nabla_W_cor,V,N,m,viscosity,rho_0);
 
     for i = 1:N
         x(1,i)=x(1,i)+dt*v(1,i);
@@ -91,6 +91,7 @@ for n = 1:fix(Time/dt)
     P=ComputeKirchhoff(F,SIG,N);
     f=ComputeForse(V,P,nabla_W_cor,N);
     plotmy=myplot(x,V,F,N,SIG,l,temp);
+    time=n*dt;
 %    fsum=[0;0];
 %     for i=1:N
 %         fsum(1:2)=f(1:2,i)+fsum(1:2);
