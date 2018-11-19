@@ -1,4 +1,4 @@
-function [mplot]=myplot(x,V,F,N,SIG,l,temp)
+function [mplot]=myplot(x,V,F,N,SIG,l,temp,v)
 
      x_coord(1:N) = x(1,1:N);
      y_coord(1:N) = x(2,1:N);
@@ -18,7 +18,7 @@ function [mplot]=myplot(x,V,F,N,SIG,l,temp)
       %  axis([0 l 0 l 0.99 1.01]);
         
         subplot(2,2,3);
-        trisurf(tri,x_coord,y_coord,V(1:N,1));
+        trisurf(tri,x_coord,y_coord,v(1,1:N));
       %  axis([0 l 0 l -0.1 0.1]);
        errSIG=zeros(1,N);
        for i = 1:N
