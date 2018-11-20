@@ -1,4 +1,4 @@
-function [mplot]=myplot(x,V,F,N,SIG,l,temp,v)
+function [mplot]=myplot(x,V,F,N,SIG,l,v)
 
      x_coord(1:N) = x(1,1:N);
      y_coord(1:N) = x(2,1:N);

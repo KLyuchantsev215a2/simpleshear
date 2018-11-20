@@ -8,7 +8,7 @@ for i=1:N
                 
                 nabla_Wij=nabla_W(1:2,i,j);
                % viscosity=dt*eps*h*cs*V(j)*(v(alpha,i))*(Hessian_W_cor(1,i,j)+Hessian_W_cor(2,i,j));   % - v(alpha,j)
-velocity(alpha,i)=velocity(alpha,i)+dt*(((m/(rho_0*rho_0))*SIG(alpha,beta,j))*nabla_Wij(beta));
+velocity(alpha,i)=velocity(alpha,i)+dt*((V(j)*V(j))/m)*SIG(alpha,beta,j)*nabla_Wij(beta);
              end
         end
     end
