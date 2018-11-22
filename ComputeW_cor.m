@@ -15,22 +15,23 @@ xj=[0,0];
 for i = 1:N
     sumW=zeros(2,1);
     alpha=0;
-    betaij=zeros(2,2);
+    betaij=zeros(2,1);
     cormat=zeros(2,2);
     xi=xper(1:2,i);
            for j = 1:N
                    xj=x(1:2,j);
-                   ri=xi-xj;
+                   ri=xj-xi;
                    sumW=sumW+V(j)*ComputeW(xi,xj,h)*ri;
             end
             
-            for beta=1:2
-                for j = 1:N
-                    xj=x(1:2,j);
-                    ri=xi-xj;
-                    cormat=cormat+(ri*ri'*V(j)*ComputeW(xi,xj,h));%51
-                 end
+            
+            for j = 1:N
+                 xj=x(1:2,j);
+                 ri=xi-xj;
+                 rit=ri';
+                 cormat=cormat+ri*rit*(V(j)*ComputeW(xi,xj,h));%51
             end
+         
             
             betaij=cormat^(-1)*sumW;
             

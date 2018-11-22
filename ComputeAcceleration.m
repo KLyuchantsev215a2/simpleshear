@@ -14,8 +14,7 @@ viscosity=ComputeViscocity(v,V,eps1,h,Hessian_W_cor,cs_0,N,eps2);
 for i=1:N
     for j=1:N
         for beta=1:2
-            for alpha=1:2
-                
+            for alpha=1:2             
                 nabla_Wij=nabla_W_cor(1:2,i,j);
                 acc(alpha,i)=acc(alpha,i)+((V(j)*V(j))/m)*SIG(alpha,beta,j)*nabla_Wij(beta);
              end
