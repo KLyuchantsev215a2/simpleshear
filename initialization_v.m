@@ -1,4 +1,4 @@
-function [init] =initialization_v(N,sqn,v_0,x)
+function [init] =initialization_v(N,sqn,v_0,x,l)
 
 v=zeros(2,N);
     for i=1:(sqn*sqn) 

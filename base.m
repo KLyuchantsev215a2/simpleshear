@@ -1,9 +1,9 @@
 clear;    
 
-rho_0 =12;
+rho_0 =1200;
 v_0 = 1;
 Time = 10;
-sqn=5;
+sqn=4;
 l=0.01;
 N=sqn*sqn;
 S=l*l;
@@ -16,19 +16,20 @@ E=9*k*mu/(3*k+mu);   % модуль Юнга
 
 cs_0=sqrt((E+4/3*mu)/rho_0);
 
-h=1.4*(m/rho_0)^(1/2);%k увеличен
-dt=0.001;
+h=1.*(m/rho_0)^(1/2);%k увеличен
+dt=0.1*h/(cs_0+v_0);
 dh=0.0000001;
-eps1=0;%-100;
-eps2=1/8;%-50;%1/5;
+eps1=1/5;%-100;
+eps2=1/25;%-50;%1/5;
 
 V=m/rho_0*ones(N,1);%m/rho_0;
 x=initialization_x(N,sqn,l);    
-v=initialization_v(N,sqn,v_0,x);
+v=initialization_v(N,sqn,v_0,x,l);
 viscosity=zeros(2,N);
 X_old=x;
 
 F=zeros(2,2,N);
+L=zeros(2,2,N);
 SIG=zeros(2,2,N);
 
 
@@ -43,6 +44,7 @@ Hessian_W_cor=zeros(2,N,N);
 
 [W_cor,nabla_W_cor_0,Hessian_W_cor]=ComputeW_final(x,V,N,h,dh);
 for n = 1:fix(Time/dt)
+    L=zeros(2,2,N);
 %     if(fix(n/200)==n/200)
 %         X_old=x;
 %         [W_cor,nabla_W_cor_0,Hessian_W_cor]=ComputeW_final(x,V,N,h,dh);
@@ -51,12 +53,14 @@ for n = 1:fix(Time/dt)
     v_old=v;
     [acc_old,F_old,SIG_old]=ComputeAcceleration(x_old,v_old,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
     x_star = x_old + dt*v_old;
-    v_star = v_old + dt*acc_old;
+    v_star = v_old + dt*acc_old/m;
     [acc_star,F,SIG] = ComputeAcceleration(x_star,v_star,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
     x_star_star = x_star + dt*v_star;
-    v_star_star = v_star + dt*acc_star;
+    v_star_star = v_star + dt*acc_star/m;
     x = 0.5*(x_old + x_star_star);
     v = 0.5*(v_old + v_star_star);
+%    [W_cor,nabla_W_cor,Hessian_W_cor]=ComputeW_final(x,V,N,h,dh);
+%    L=ComputeL(v,V,nabla_W_cor,N);
 %       x_old=x;
 %       v_old=v;
 %       [acc_old,F_old,SIG_old]=ComputeAcceleration(x_old,v_old,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);

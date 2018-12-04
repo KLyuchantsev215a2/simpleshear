@@ -15,11 +15,11 @@ function [mplot]=myplot(x,V,F,N,SIG,l,v)
         tri=delaunay(x_coord,y_coord);
         subplot(2,2,2);
         trisurf(tri,x_coord,y_coord,detF(1,1:N));
-       axis([0 l 0 l 0.99 1.01]);
+     %  axis([0 l 0 l 0.99 1.01]);
         
         subplot(2,2,3);
         trisurf(tri,x_coord,y_coord,v(1,1:N));
-       axis([0 l 0 l -0.002 0.009]);
+      % axis([0 l 0 l -0.002 0.009]);
        errSIG=zeros(1,N);
        for i = 1:N
                errSIG(i)=SIG(1,2,i);
@@ -27,6 +27,6 @@ function [mplot]=myplot(x,V,F,N,SIG,l,v)
        
         subplot(2,2,4);
         trisurf(tri,x_coord,y_coord,errSIG);  
-        axis([0 l 0 l 0 5]);
+      %  axis([0 l 0 l 0 5]);
         pause(0.0000001);
 mplot=0;
