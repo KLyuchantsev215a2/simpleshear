@@ -1,8 +1,15 @@
 clear;    
 
+% fig = figure();
+% % создание первого пустого кадра
+% set(fig,'Position',[350,200,700,700]);
+% frame = getframe(fig);
+% [im,map] = rgb2ind(frame.cdata,4);
+% imwrite(im,map,'animation3.gif','DelayTime',0,'Loopcount',inf);
+
 rho_0 =3;
 v_0 = 1;
-Time = 10;
+Time = 20;
 sqn=5;
 l=1;
 N=sqn*sqn;
@@ -16,8 +23,8 @@ E=9*k*mu/(3*k+mu);   % модуль Юнга
 
 cs_0=sqrt((E+4/3*mu)/rho_0);
 
-h=1.4*(m/rho_0)^(1/2);%k увеличен
-dt=0.01*h/(cs_0+v_0);
+h=1*(m/rho_0)^(1/2);%k увеличен
+dt=0.1*h/(cs_0+v_0);
 dh=0.0000001;
 eps1=0;%-100;
 eps2=0;%-50;%1/5;
@@ -31,6 +38,7 @@ X_old=x;
 F=zeros(2,2,N);
 L=zeros(2,2,N);
 SIG=zeros(2,2,N);
+U=zeros(N,1);
 
 
 for i = 1:N
@@ -49,33 +57,40 @@ for n = 1:fix(Time/dt)
 %         X_old=x;
 %         [W_cor,nabla_W_cor_0,Hessian_W_cor]=ComputeW_final(x,V,N,h,dh);
 %     end
-    x_old=x;
-    v_old=v;
-    [acc_old,F_old,SIG_old]=ComputeAcceleration(x_old,v_old,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
-    x_star = x_old + dt*v_old;
-    v_star = v_old + dt*acc_old;
-    [acc_star,F,SIG] = ComputeAcceleration(x_star,v_star,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
-    x_star_star = x_star + dt*v_star;
-    v_star_star = v_star + dt*acc_star;
-    x = 0.5*(x_old + x_star_star);
-    v = 0.5*(v_old + v_star_star);
+%     x_old=x;
+%     v_old=v;
+%     [acc_old,F_old,SIG_old]=ComputeAcceleration(x_old,v_old,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
+%     x_star = x_old + dt*v_old;
+%     v_star = v_old + dt*acc_old;
+%     [acc_star,F,SIG] = ComputeAcceleration(x_star,v_star,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
+%     x_star_star = x_star + dt*v_star;
+%     v_star_star = v_star + dt*acc_star;
+%     x = 0.5*(x_old + x_star_star);
+%     v = 0.5*(v_old + v_star_star);
 %    [W_cor,nabla_W_cor,Hessian_W_cor]=ComputeW_final(x,V,N,h,dh);
 %    L=ComputeL(v,V,nabla_W_cor,N);
-%       x_old=x;
-%       v_old=v;
-%       [acc_old,F_old,SIG_old]=ComputeAcceleration(x_old,v_old,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
-%       x_n_1=x_old+dt*v_old;
-%       v_n_1=v_old+dt*acc_old;
-%       [acc_n_1,F,SIG]=ComputeAcceleration(x_n_1,v_n_1,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
-%       x_n_2=x_n_1+dt*v_n_1;
-%       v_n_2=v_n_1+dt*acc_n_1;
-%       x_n_1_2=3/4*x_old+1/4*x_n_2;
-%       v_n_1_2=3/4*v_old+1/4*v_n_2;
-%       [acc_n_1_2,F,SIG]=ComputeAcceleration(x_n_1_2,v_n_1_2,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
-%       x_n_3_2=x_n_1_2+dt*v_n_1_2;
-%       v_n_3_2=v_n_1_2+dt*acc_n_1_2;
-%       x=1/3*x_old+2/3*x_n_3_2;
-%       v=1/3*v_old+2/3*v_n_3_2;
-      plotmy=myplot(x,V,F,N,SIG,l,v);
+      x_old=x;
+      v_old=v;
+      [acc_old,F_old,SIG_old]=ComputeAcceleration(x_old,v_old,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
+      x_n_1=x_old+dt*v_old;
+      v_n_1=v_old+dt*acc_old;
+      [acc_n_1,F,SIG]=ComputeAcceleration(x_n_1,v_n_1,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
+      x_n_2=x_n_1+dt*v_n_1;
+      v_n_2=v_n_1+dt*acc_n_1;
+      x_n_1_2=3/4*x_old+1/4*x_n_2;
+      v_n_1_2=3/4*v_old+1/4*v_n_2;
+      [acc_n_1_2,F,SIG]=ComputeAcceleration(x_n_1_2,v_n_1_2,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh);
+      x_n_3_2=x_n_1_2+dt*v_n_1_2;
+      v_n_3_2=v_n_1_2+dt*acc_n_1_2;
+      x=1/3*x_old+2/3*x_n_3_2;
+      v=1/3*v_old+2/3*v_n_3_2;
+      
+      U=ComputeEnergy(F,mu,N);
+      Energy=0;
+      for i=1:N
+          Energy=Energy+U(i)*V(i)+1/2*V(i)*dot(v(1:2,i),v(1:2,i));
+      end
+      plotmy=myplot(x,V,F,N,SIG,l,v,Energy);%%n,im,frame,map,fig);
       life_time=n*dt;
 end
+
