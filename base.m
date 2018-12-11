@@ -9,7 +9,7 @@ clear;
 
 rho_0 =3;
 v_0 = 1;
-Time = 20;
+Time = 1;
 sqn=5;
 l=1;
 N=sqn*sqn;
@@ -23,8 +23,8 @@ E=9*k*mu/(3*k+mu);   % модуль Юнга
 
 cs_0=sqrt((E+4/3*mu)/rho_0);
 
-h=1*(m/rho_0)^(1/2);%k увеличен
-dt=0.1*h/(cs_0+v_0);
+h=1.4*(m/rho_0)^(1/2);%k увеличен
+dt=0.05*h/(cs_0+v_0);
 dh=0.0000001;
 eps1=0;%-100;
 eps2=0;%-50;%1/5;
@@ -39,7 +39,8 @@ F=zeros(2,2,N);
 L=zeros(2,2,N);
 SIG=zeros(2,2,N);
 U=zeros(N,1);
-
+Energy_time=zeros(fix(Time/dt),1);
+time=zeros(fix(Time/dt),1);
 
 for i = 1:N
     F(1:2,1:2,i)=eye(2);
@@ -88,9 +89,16 @@ for n = 1:fix(Time/dt)
       U=ComputeEnergy(F,mu,N);
       Energy=0;
       for i=1:N
-          Energy=Energy+U(i)*V(i)+1/2*V(i)*dot(v(1:2,i),v(1:2,i));
+          Energy=Energy+U(i)*V(i)+1/2*m*V(i)*dot(v(1:2,i),v(1:2,i));%+U(i)*V(i)
       end
-      plotmy=myplot(x,V,F,N,SIG,l,v,Energy);%%n,im,frame,map,fig);
+      
+      Energy_time(n)=Energy;
+      time(n)=n*dt;
+      plotmy=myplot(x,V,F,N,SIG,l,v,Energy_time,time);%%n,im,frame,map,fig);
       life_time=n*dt;
 end
+% x_coord =time;
+% y_coord = Energy_time;
+% subplot(2,2,1);
+% plot(x_coord,y_coord);
 

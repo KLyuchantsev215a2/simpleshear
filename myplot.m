@@ -1,9 +1,9 @@
-function [mplot]=myplot(x,V,F,N,SIG,l,v,Energy)%,%n,im,f,map,fig)
+function [mplot]=myplot(x,V,F,N,SIG,l,v,Energy_time,time)%,%n,im,f,map,fig)
 % % fig = figure();
 % % создание первого пустого кадра
 % set(fig,'Position',[350,200,700,700]);
 % frame = getframe(fig);
-    Energy_v=Energy*ones(N,1);
+    
 
      x_coord(1:N) = x(1,1:N);
      y_coord(1:N) = x(2,1:N);
@@ -37,11 +37,14 @@ function [mplot]=myplot(x,V,F,N,SIG,l,v,Energy)%,%n,im,f,map,fig)
        end
        
         subplot(2,2,4);
-        trisurf(tri,x_coord,y_coord, Energy_v);  
+        x_coord =time;
+        y_coord = Energy_time;
+        plot(x_coord,y_coord);
+%        trisurf(tri,x_coord,y_coord, errSIG);  
 %          xlim([0, 2*l]);
 %          ylim([0, 2*l]);
 %          zlim([-1, 1]);
-         pause(0.000001);
+         pause(0.0000001);
 %         hold on;
       
 %       

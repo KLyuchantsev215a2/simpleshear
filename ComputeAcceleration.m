@@ -21,6 +21,6 @@ for i=1:N
    
     for alpha=1:2
          acc(alpha,i)=acc(alpha,i)/m;
-         %acc(alpha,i) = acc(alpha,i) + viscosity(alpha,i);
+         acc(alpha,i) = acc(alpha,i) + viscosity(alpha,i);
     end
 end

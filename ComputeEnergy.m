@@ -13,6 +13,7 @@ for i = 1:N
     F = Fp(1:2,1:2,i);
     F(3,3) = 1;
     J = det(F);
-    Ciso = J^(-2/3)*F'*F;    % isochoric part of  right Cauchy–Green deformation tensor
-    U(i) =mu/2*(trace(Ciso)-3);   
+    B=F*F';
+    Ciso = J^(-2/3)*B;    % isochoric part of  right Cauchy–Green deformation tensor
+    U(i)=mu/2*(trace(Ciso)-3);   
 end

@@ -17,7 +17,6 @@ for i = 1:N
     B = F*F';  % left Cauchy-Green tensor
     Biso = J^(-2/3)*B;    % isochoric part of the left Cauchy-Green tensor
     devBiso = Biso - 1/3*trace(Biso)*eye(3);   % deviatoric part Biso
-    stress = (2*mu*devBiso + k/10*(J^5-J^(-5))*eye(3) )/J;
-    
+    stress =(2*mu*devBiso + k/10*(J^5-J^(-5))*eye(3) )/J;  %2*mu*devBiso + k*(J-1)*eye(3);
     SIG(1:2,1:2,i) = stress(1:2,1:2);
 end
