@@ -5,12 +5,12 @@ function [mplot]=myplot(x,V,F,N,SIG,l,v,Energy_time,time)%,%n,im,f,map,fig)
 % frame = getframe(fig);
     
 
-     x_coord(1:N) = x(1,1:N);
-     y_coord(1:N) = x(2,1:N);
+      x_coord(1:N) = x(1,1:N);
+      y_coord(1:N) = x(2,1:N);
      subplot(2,2,1);
      
      scatter(x_coord,y_coord);
-   %  axis([-l 2*l -1 2*l ]);
+%     axis([-l 2*l -1 2*l ]);
 %          hold on;
      detF=ones(1,N);
      for i = 1:N

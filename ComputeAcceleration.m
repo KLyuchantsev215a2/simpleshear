@@ -1,4 +1,4 @@
-function [acc,F,SIG]=ComputeAcceleration(x,v,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh)
+function [acc,F,SIG]=ComputeAcceleration(x,v,V,N,m,eps1,eps2,h,cs_0,nabla_W_cor_0,X_old,mu,k,dh,rho_0)
 
 F=ComputeF(V,x,nabla_W_cor_0,N,X_old);  
 SIG=ComputeStress(F,mu,k,N);
@@ -20,7 +20,7 @@ for i=1:N
     end
    
     for alpha=1:2
-         acc(alpha,i)=acc(alpha,i)/m;
+         acc(alpha,i)=acc(alpha,i)/rho_0;
          acc(alpha,i) = acc(alpha,i) + viscosity(alpha,i);
     end
 end
