@@ -8,7 +8,7 @@ acc=zeros(2,N);
 V=computeV(N,W_cor,m);  
 
 SIG_tmp=zeros(2);
-viscosity=ComputeViscocity(v,V,eps1,h,Hessian_W_cor,cs_0,N,eps2);
+%viscosity=ComputeViscocity(v,V,eps1,h,Hessian_W_cor,cs_0,N,eps2);
 
 for i=1:N
     for j=1:N
@@ -21,6 +21,6 @@ for i=1:N
    
     for alpha=1:2
          acc(alpha,i)=acc(alpha,i)/rho_0;
-         acc(alpha,i) = acc(alpha,i) + viscosity(alpha,i);
+       %  acc(alpha,i) = acc(alpha,i) + viscosity(alpha,i);
     end
 end

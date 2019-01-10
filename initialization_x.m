@@ -8,8 +8,8 @@ x=zeros(2,N);
 
 for  yi=1:sqn
      for  xi=1:sqn
-        x(1,i) =xi/sqn*l;
-        x(2,i) =yi/sqn*l;
+        x(1,i) =(xi-1)/(sqn-1)*l;
+        x(2,i) =(yi-1)/(sqn-1)*l;
         i=i+1;
     end
 end

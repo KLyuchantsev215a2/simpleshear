@@ -1,16 +1,16 @@
 clear;    
 
-% fig = figure();
+%  fig = figure();
 % % создание первого пустого кадра
-% set(fig,'Position',[350,200,700,700]);
-% frame = getframe(fig);
-% [im,map] = rgb2ind(frame.cdata,4);
-% imwrite(im,map,'animation3.gif','DelayTime',0,'Loopcount',inf);
+%  set(fig,'Position',[350,200,700,700]);
+%   frame = getframe(fig);
+%  [im,map] = rgb2ind(frame.cdata,4);
+%  imwrite(im,map,'animation3.gif','DelayTime',0,'Loopcount',inf);
 
 rho_0 =3;
 v_0 = 1;
-Time = 4;
-sqn=5;
+Time = 0.5;
+sqn=10;
 l=1;
 N=sqn*sqn;
 S=l*l;
@@ -24,7 +24,7 @@ E=9*k*mu/(3*k+mu);   % модуль Юнга
 cs_0=sqrt((E+4/3*mu)/rho_0);
 
 h=1.4*(m/rho_0)^(1/2);%k увеличен
-dt=0.2*h/(cs_0+v_0);
+dt=0.1*h/(cs_0+v_0);
 dh=0.0000001;
 eps1=0;%-100;
 eps2=0;%-50;%1/5;
@@ -53,8 +53,12 @@ SIG=ComputeStress(F,mu,k,N);
 W_cor=zeros(N,N);
 nabla_W_cor=zeros(2,N,N);
 Hessian_W_cor=zeros(2,N,N);
-
+coord_midle=zeros(2,fix(Time/dt));
+coord_top=zeros(2,fix(Time/dt));
 [W_cor,nabla_W_cor_0,Hessian_W_cor]=ComputeW_final(x,V,N,h,dh);
+ss1=load('Displacment_X_top_right.txt');
+ss2=load('Displacment_Y_top_right.txt');
+%plot(ss1(:,2),ss1(:,3),'r',ss2(:,2),ss2(:,3),'g');
 for n = 1:fix(Time/dt)
     L=zeros(2,2,N);
 %     if(fix(n/200)==n/200)
@@ -101,6 +105,10 @@ for n = 1:fix(Time/dt)
       U_time(n)=U_energy;%potential energy
       T_time(n)= T_energy;
       Energy_time(n)=U_energy + T_energy;
+      coord_top_x(n)=x(1,sqn*sqn)-X_old(1,sqn*sqn);
+      coord_top_y(n)=x(2,sqn*sqn)-X_old(2,sqn*sqn);
+      coord_midle_x(n)=x(1,sqn*sqn-fix(sqn/2))-X_old(1,sqn*sqn-fix(sqn/2));
+      coord_midle_y(n)=x(2,sqn*sqn-fix(sqn/2))-X_old(2,sqn*sqn-fix(sqn/2));
       time(n)=n*dt;
 %         subplot(2,2,1);
 %         x_coord =time;
@@ -115,9 +123,14 @@ for n = 1:fix(Time/dt)
 %         y_coord = Energy_time;
 %         plot(x_coord,y_coord);
 %          pause(0.0000001);
-     plotmy=myplot(x,V,F,N,SIG,l,v,Energy_time,time);%%n,im,frame,map,fig);
+     % plotmy=myplot(x,V,F,N,SIG,l,v,Energy_time,time);%%n,im,frame,map,fig);
       life_time=n*dt;
+      disp(life_time);
 end
+
+plot( time, coord_top_x, time, coord_top_y,ss1(:,2),ss1(:,3),'--',ss2(:,2),ss2(:,3),'--');
+%plot( time, coord_midle_x, time, coord_midle_y);
+%plot( time, Energy_time);
 % x_coord =time;
 % y_coord = Energy_time;
 % subplot(2,2,1);

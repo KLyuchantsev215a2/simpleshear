@@ -6,7 +6,7 @@ v=zeros(2,N);
 %          v(2,i)=0;
 %      end
      for i=1:(sqn*sqn) 
-         v(1,i)=0.8*(x(2,i));
+         v(1,i)=x(2,i)*v_0-x(2,1)*v_0;
          v(2,i)=0;
      end
 
