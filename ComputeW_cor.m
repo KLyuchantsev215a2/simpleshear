@@ -32,7 +32,7 @@ for i = 1:N
                  cormat=cormat+ri*rit*(V(j)*ComputeW(xi,xj,h));%51
             end
          
-            
+            las=cormat^(-1);
             betaij=cormat^(-1)*sumW;
             
             for j = 1:N

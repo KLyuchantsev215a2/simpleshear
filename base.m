@@ -9,7 +9,7 @@ clear;
 
 rho_0 =3;
 v_0 = 1;
-Time = 0.5;
+Time = 1.5;
 sqn=10;
 l=1;
 N=sqn*sqn;
@@ -25,7 +25,7 @@ cs_0=sqrt((E+4/3*mu)/rho_0);
 
 h=1.4*(m/rho_0)^(1/2);%k увеличен
 dt=0.1*h/(cs_0+v_0);
-dh=0.0000001;
+dh=0.000001;
 eps1=0;%-100;
 eps2=0;%-50;%1/5;
 
@@ -56,6 +56,8 @@ Hessian_W_cor=zeros(2,N,N);
 coord_midle=zeros(2,fix(Time/dt));
 coord_top=zeros(2,fix(Time/dt));
 [W_cor,nabla_W_cor_0,Hessian_W_cor]=ComputeW_final(x,V,N,h,dh);
+
+
 ss1=load('Displacment_X_top_right.txt');
 ss2=load('Displacment_Y_top_right.txt');
 %plot(ss1(:,2),ss1(:,3),'r',ss2(:,2),ss2(:,3),'g');
@@ -125,7 +127,8 @@ for n = 1:fix(Time/dt)
 %          pause(0.0000001);
      % plotmy=myplot(x,V,F,N,SIG,l,v,Energy_time,time);%%n,im,frame,map,fig);
       life_time=n*dt;
-      disp(life_time);
+      disp(x(2,N));%,x(2,N),life_time);
+       disp(life_time);
 end
 
 plot( time, coord_top_x, time, coord_top_y,ss1(:,2),ss1(:,3),'--',ss2(:,2),ss2(:,3),'--');

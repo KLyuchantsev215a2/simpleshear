@@ -5,7 +5,7 @@ SIG=ComputeStress(F,mu,k,N);
 acc=zeros(2,N);
 
 [W_cor,nabla_W_cor,Hessian_W_cor]=ComputeW_final(x,V,N,h,dh);
-V=computeV(N,W_cor,m);  
+%V=computeV(N,W_cor,m);  
 
 SIG_tmp=zeros(2);
 %viscosity=ComputeViscocity(v,V,eps1,h,Hessian_W_cor,cs_0,N,eps2);
